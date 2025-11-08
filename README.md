@@ -110,3 +110,7 @@ message TEXT,
 sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
+
+
+
+
