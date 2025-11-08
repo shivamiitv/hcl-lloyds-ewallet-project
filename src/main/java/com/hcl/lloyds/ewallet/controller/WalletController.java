@@ -2,26 +2,30 @@ package com.hcl.lloyds.ewallet.controller;
 
 import com.hcl.lloyds.ewallet.dto.AddMoneyRequest;
 import com.hcl.lloyds.ewallet.dto.WalletResponse;
+import com.hcl.lloyds.ewallet.entity.User;
+import com.hcl.lloyds.ewallet.entity.Wallet;
 import com.hcl.lloyds.ewallet.service.WalletService;
+import com.hcl.lloyds.ewallet.service.WalletServiceImplementation;
+
+import jakarta.websocket.server.PathParam;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/wallets")
+@RequestMapping("api/wallet")
 public class WalletController {
+	
+	@Autowired
+	WalletService walletService;
 
-    private final WalletService walletService;
-
-    public WalletController(WalletService walletService) {
-        this.walletService = walletService;
+    @PostMapping("/v1/{user-id}/create-wallet")
+    public Wallet createWallet(@PathVariable long userId, Wallet wallet) {
+    	return walletService.createWallet(userId, wallet);
     }
-
-    @GetMapping("/{id}")
-    public WalletResponse get(@PathVariable Long id) {
-        return walletService.getWallet(id);
-    }
-
-    @PostMapping("/add-money")
-    public WalletResponse add(@RequestBody AddMoneyRequest req) {
-        return walletService.addMoney(req);
-    }
+    
+    @GetMapping("/v1/{user-id}/")
+    public Wallet getUserWallet(@PathVariable long userId) {
+    	return walletService.getUserWallet(userId);
+    }    
 }

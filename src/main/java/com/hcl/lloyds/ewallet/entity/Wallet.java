@@ -1,36 +1,40 @@
 package com.hcl.lloyds.ewallet.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 
+
 @Entity
 @Table(name = "wallets")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Wallet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "wallet_id", nullable =false, unique=true)
+    private Long walletId;
 
-    @OneToOne(optional = false)
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable=false) 
     private User user;
 
-    @Column(nullable = false, precision = 19, scale = 2)
+    @Column(name ="balance", nullable = false, precision = 12, scale = 2)
     private BigDecimal balance = BigDecimal.ZERO;
 
-    @Column(nullable = false)
+    @Column(name ="updated_at", nullable = false)
     private Instant updatedAt = Instant.now();
+    
+//    @Column(name = "bank_id", nullable = false)
+//    private int bankId;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
-
-    public BigDecimal getBalance() { return balance; }
-    public void setBalance(BigDecimal balance) { this.balance = balance; }
-
-    public Instant getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(Instant updatedAt) { this.updatedAt = updatedAt; }
+    
 }
