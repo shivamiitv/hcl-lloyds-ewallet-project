@@ -17,7 +17,11 @@ public class UserEntity {
     @Column(nullable = false, unique = true, length = 100)
     private String email;
 
-    @Column(length = 15)
+    @Column(length = 10)
+    @jakarta.validation.constraints.Pattern(
+            regexp = "^\\d{10}$",
+            message = "Phone number must be exactly 10 digits"
+    )
     private String phone;
 
     @Column(nullable = false)
