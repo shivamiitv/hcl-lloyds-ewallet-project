@@ -53,4 +53,5 @@ public class UserResponseDto {
                 ", phone='" + phone + '\'' +
                 '}';
     }
+
 }

@@ -11,10 +11,10 @@ public class UserEntity {
     @Column(name = "user_id", nullable = false, unique = true)
     private Integer userId;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 30, unique = true)
     private String name;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false, unique = true, length = 30)
     private String email;
 
     @Column(length = 10)
