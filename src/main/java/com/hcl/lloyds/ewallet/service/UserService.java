@@ -1,28 +1,34 @@
 package com.hcl.lloyds.ewallet.service;
 
-import com.hcl.lloyds.ewallet.dto.UserRequestDto;
-import com.hcl.lloyds.ewallet.dto.UserResponseDto;
-import com.hcl.lloyds.ewallet.entity.UserEntity;
-import com.hcl.lloyds.ewallet.exception.CustomException;
+import com.hcl.lloyds.ewallet.dto.CreateUserRequest;
+import com.hcl.lloyds.ewallet.entity.User;
+import com.hcl.lloyds.ewallet.entity.Wallet;
 import com.hcl.lloyds.ewallet.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.hcl.lloyds.ewallet.repository.WalletRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
 
+    private final UserRepository userRepository;
+    private final WalletRepository walletRepository;
 
-    public UserResponseDto createUser(UserRequestDto dto) {
-        if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
-            throw new CustomException("Email already exists.");
-        }
-        UserEntity user = new UserEntity();
-        user.setName(dto.getName());
-        user.setEmail(dto.getEmail());
-        user.setPhone(dto.getPhone());
-        UserEntity savedUser = userRepository.save(user);
-        return new UserResponseDto(savedUser.getUserId(), savedUser.getName(), savedUser.getEmail(), savedUser.getPhone());
+    public UserService(UserRepository userRepository, WalletRepository walletRepository) {
+        this.userRepository = userRepository;
+        this.walletRepository = walletRepository;
+    }
+
+    @Transactional
+    public User createUser(CreateUserRequest req) {
+        User u = new User();
+        u.setName(req.getName());
+        u.setPhone(req.getPhone());
+        u = userRepository.save(u);
+
+        Wallet w = new Wallet();
+        w.setUser(u);
+        walletRepository.save(w);
+        return u;
     }
 }
