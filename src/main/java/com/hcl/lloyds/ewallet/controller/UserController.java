@@ -19,4 +19,9 @@ public class UserController {
     public User create(@RequestBody CreateUserRequest req) {
         return userService.createUser(req);
     }
+
+    @GetMapping
+    public String helloWorld(){
+        return "All is well .......";
+    }
 }

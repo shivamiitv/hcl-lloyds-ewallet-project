@@ -1,5 +1,6 @@
 package com.hcl.lloyds.ewallet.dto;
 
+
 public class CreateUserRequest {
     private String name;
     private String phone;
