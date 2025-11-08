@@ -8,6 +8,9 @@ import com.hcl.lloyds.ewallet.repository.WalletRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -31,4 +34,11 @@ public class UserService {
         walletRepository.save(w);
         return u;
     }
+
+    public Optional<User> findByPhone(String phone){
+        return userRepository.findByPhone(phone);
+    }
+
+
+
 }

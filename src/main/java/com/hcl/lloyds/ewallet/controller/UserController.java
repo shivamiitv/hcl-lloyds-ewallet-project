@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @GetMapping
-    public String helloWorld(){
+    public String get(){
         return "All is well .......";
     }
 }

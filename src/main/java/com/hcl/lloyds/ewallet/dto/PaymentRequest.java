@@ -8,6 +8,8 @@ public class PaymentRequest {
     private BigDecimal amount;
     private String reference;
 
+    private String externalCustomerId;
+
     public Long getFromWalletId() { return fromWalletId; }
     public void setFromWalletId(Long fromWalletId) { this.fromWalletId = fromWalletId; }
 
@@ -19,4 +21,8 @@ public class PaymentRequest {
 
     public String getReference() { return reference; }
     public void setReference(String reference) { this.reference = reference; }
+
+    public String getExternalCustomerId() { return externalCustomerId; }
+
+    public void setExternalCustomerId(String externalCustomerId) { this.externalCustomerId= externalCustomerId; }
 }
